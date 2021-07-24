@@ -13,5 +13,6 @@ export const Title = styled.Text`
 `;
 
 export const colors = {
-  main: "#ffc000",
+  main: "#2F2E41",
+  // * "#ffc000", "#0E9FBE"
 };

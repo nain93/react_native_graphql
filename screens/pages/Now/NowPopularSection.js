@@ -61,16 +61,6 @@ const MoreText = styled.Text`
   font-weight: 700;
 `;
 
-const TestText = styled.Text`
-  position: absolute;
-  color: black;
-  top: 10px;
-  left: 5px;
-  font-size: 20px;
-  font-weight: 700;
-  background-color: white;
-`;
-
 const PopularSection = ({ navigation }) => {
   const [pickCount, setPickCount] = useState(1);
   const [pickData, setPickData] = useState([]);
@@ -143,7 +133,6 @@ const PopularSection = ({ navigation }) => {
                     </IconView>
                   </DescText>
                 </DescItem>
-                <TestText>픽화면 테스트용 카드</TestText>
               </Item>
             );
           })}
