@@ -13,7 +13,6 @@ function Now({ navigation }) {
   return (
     <Container>
       <NowPopularSection navigation={navigation} />
-      <Ad dummyData={dummyData.result.Ad1.data[0]} />
       <FilterSection />
     </Container>
   );

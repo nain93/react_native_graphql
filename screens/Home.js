@@ -1,41 +1,79 @@
 import React from "react";
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Now from "./pages/Now";
 import Fun from "./pages/Fun";
 import My from "./pages/My";
 import { colors } from "../style";
-import { SafeAreaView } from "react-native-safe-area-context";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import styled from "styled-components";
 
-const Tab = createMaterialTopTabNavigator();
+const Tab = createBottomTabNavigator();
 
-// const Container = styled.SafeAreaView`
-//   flex: 1;
-// `;
+const Container = styled.View`
+  flex: 1;
+`;
 
 function Home() {
   return (
-    <SafeAreaView
-      mode="margin"
-      style={{ flex: 1, backgroundColor: colors.main }}
-    >
+    <Container style={{ flex: 1 }}>
       <Tab.Navigator
-        swipeEnabled={true}
         tabBarOptions={{
-          activeTintColor: "#eee",
-          inactiveTintColor: "#eee",
-          labelStyle: { fontSize: 15 },
-          style: {
-            backgroundColor: colors.main,
+          activeTintColor: colors.main,
+          inactiveTintColor: colors.main,
+          labelStyle: { fontSize: 12 },
+          tabStyle: {
+            display: "flex",
+            justifyContent: "center",
           },
 
           indicatorStyle: { backgroundColor: "#eee" },
         }}
       >
-        <Tab.Screen name="Now." component={Now} />
-        <Tab.Screen name="Fun." component={Fun} />
-        <Tab.Screen name="My." component={My} />
+        <Tab.Screen
+          name="Now"
+          component={Now}
+          options={{
+            tabBarLabel: "이상형월드컵",
+            tabBarIcon: ({ color, size, focused }) => (
+              <MaterialCommunityIcons
+                name={focused ? "trophy-variant" : "trophy-variant-outline"}
+                color={color}
+                size={size}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Fun"
+          component={Fun}
+          options={{
+            tabBarLabel: "밸런스게임",
+            tabBarIcon: ({ color, size, focused }) => (
+              <MaterialCommunityIcons
+                name={focused ? "gamepad-variant" : "gamepad-variant-outline"}
+                color={color}
+                size={size}
+              />
+            ),
+            tabBarBadge: 3,
+          }}
+        />
+        <Tab.Screen
+          name="My"
+          component={My}
+          options={{
+            tabBarLabel: "내 정보",
+            tabBarIcon: ({ color, size, focused }) => (
+              <MaterialCommunityIcons
+                name={focused ? "account" : "account-outline"}
+                color={color}
+                size={size}
+              />
+            ),
+          }}
+        />
       </Tab.Navigator>
-    </SafeAreaView>
+    </Container>
   );
 }
 

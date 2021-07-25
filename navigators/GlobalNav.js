@@ -4,9 +4,7 @@ import {
   createStackNavigator,
   TransitionPresets,
 } from "@react-navigation/stack";
-import Landing from "../screens/Landing";
 import Home from "../screens/Home";
-import Wallet from "../screens/Wallet";
 import Upload from "../Components/Upload";
 import DetailReady from "../screens/pages/Detail/DetailReady";
 import DetailTinderPick from "../screens/pages/Detail/DetailTinderPick";
@@ -19,6 +17,8 @@ import History from "../screens/pages/My/MyNav/History";
 import MyPick from "../screens/pages/My/MySetting/MyPick";
 import MyFun from "../screens/pages/My/MySetting/MyFun";
 import ResultAll from "../screens/pages/Result/ResultAll";
+import CreateAccount from "../screens/CreateAccount";
+import LogoTitle from "../Components/LogoTitle";
 
 const TransitionScreenOptions = {
   ...TransitionPresets.ModalSlideFromBottomIOS,
@@ -30,27 +30,28 @@ function GlobalNav() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={TransitionScreenOptions}>
         <Stack.Screen
-          name="Landing"
-          options={{
-            headerTitle: false,
-            headerTransparent: true,
-          }}
-          component={Landing}
-        />
-        <Stack.Screen
-          name="Wallet"
-          options={{
-            headerTitle: false,
-            headerTransparent: true,
-          }}
-          component={Wallet}
-        />
-        <Stack.Screen
           name="Home"
           options={{
-            headerShown: false,
+            headerTitle: (props) => <LogoTitle {...props} />,
+            headerStyle: {
+              backgroundColor: "transparent",
+              elevation: 0, // android
+              shadowOpacity: 0, //ios
+            },
           }}
           component={Home}
+        />
+        <Stack.Screen
+          name="CreateAccount"
+          options={{
+            headerTitle: "",
+            headerStyle: {
+              backgroundColor: "transparent",
+              elevation: 0, // android
+              shadowOpacity: 0, //ios
+            },
+          }}
+          component={CreateAccount}
         />
         <Stack.Screen
           name="Upload"

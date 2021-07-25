@@ -46,7 +46,7 @@ const ProfileSection = ({ navigation }) => {
 
   const handleLogout = () => dispatch(logOut());
 
-  const goToWallet = () => navigation.navigate("Wallet");
+  const goToWallet = () => navigation.navigate("CreateAccount");
 
   return (
     <Container>
@@ -65,7 +65,7 @@ const ProfileSection = ({ navigation }) => {
           </>
         ) : (
           <TouchableOpacity onPress={goToWallet}>
-            <Text>지갑 연동</Text>
+            <Text>로그인</Text>
           </TouchableOpacity>
         )}
       </ProfileDesc>

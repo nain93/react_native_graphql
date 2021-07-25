@@ -11,6 +11,7 @@ expo install react-native-appearance
 npm install react-hook-form
 npm install @hookform/error-message
 npm install @react-navigation/material-top-tabs react-native-tab-view@^2.16.0
+npm install @react-navigation/bottom-tabs
 npm install --save react-native-snap-carousel
 npm install react-native-safe-area-context
 npm i react-native-keyboard-aware-scroll-view
@@ -20,3 +21,7 @@ npm i react-native-modal-selector --save
 npm install redux-persist
 npm install @react-native-async-storage/async-storage
 npm i react-native-reanimated/plugin
+npm i react-native-vector-icons
+
+npm install -g sharp-cli
+npx expo-optimize
