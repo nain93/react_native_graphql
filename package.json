@@ -7,6 +7,7 @@
     "start": "react-native start"
   },
   "dependencies": {
+    "@apollo/client": "^3.3.21",
     "@hookform/error-message": "^2.0.0",
     "@react-native-async-storage/async-storage": "^1.15.5",
     "@react-native-community/masked-view": "0.1.10",
@@ -14,7 +15,6 @@
     "@react-navigation/material-top-tabs": "^5.3.15",
     "@react-navigation/native": "^5.9.4",
     "@react-navigation/stack": "^5.14.5",
-    "@reduxjs/toolkit": "^1.6.0",
     "expo": "~41.0.1",
     "expo-app-loading": "^1.1.2",
     "expo-asset": "~8.3.1",
@@ -22,6 +22,7 @@
     "expo-splash-screen": "~0.11.2",
     "expo-status-bar": "~1.0.4",
     "expo-updates": "~0.8.1",
+    "graphql": "^15.5.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-hook-form": "^7.9.0",
@@ -39,8 +40,6 @@
     "react-native-unimodules": "~0.14.5",
     "react-native-vector-icons": "^8.1.0",
     "react-native-web": "~0.13.12",
-    "react-redux": "^7.2.4",
-    "redux-persist": "^6.0.0",
     "styled-components": "^5.3.0",
     "yarn": "^1.22.10"
   },

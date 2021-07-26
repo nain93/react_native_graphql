@@ -7,7 +7,6 @@ import ModalSelector from "react-native-modal-selector";
 import dummyData from "../../../../data/dummyData";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
 import { useFocusEffect } from "@react-navigation/core";
 
 const CoinBtnBox = styled.View``;
@@ -42,7 +41,6 @@ const ExchangeText = styled.Text`
 
 const Exchange = () => {
   const coinRef = useRef();
-  const dispatch = useDispatch();
   const [coinName, setCoinName] = useState("SUC");
 
   const {

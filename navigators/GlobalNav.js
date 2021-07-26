@@ -19,6 +19,7 @@ import MyFun from "../screens/pages/My/MySetting/MyFun";
 import ResultAll from "../screens/pages/Result/ResultAll";
 import CreateAccount from "../screens/CreateAccount";
 import LogoTitle from "../Components/LogoTitle";
+import LogIn from "../screens/LogIn";
 
 const TransitionScreenOptions = {
   ...TransitionPresets.ModalSlideFromBottomIOS,
@@ -52,6 +53,18 @@ function GlobalNav() {
             },
           }}
           component={CreateAccount}
+        />
+        <Stack.Screen
+          name="LogIn"
+          options={{
+            headerTitle: "",
+            headerStyle: {
+              backgroundColor: "transparent",
+              elevation: 0, // android
+              shadowOpacity: 0, //ios
+            },
+          }}
+          component={LogIn}
         />
         <Stack.Screen
           name="Upload"

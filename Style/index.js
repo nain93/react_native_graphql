@@ -10,6 +10,8 @@ export const ItemBox = styled.View`
 export const Title = styled.Text`
   font-weight: 700;
   margin: 20px;
+  font-size: 18px;
+  color: #2F2E41
 `;
 
 export const colors = {

@@ -7,14 +7,14 @@ import GlobalNav from "./navigators/GlobalNav";
 import landing from "./assets/landing.png";
 import { AppearanceProvider } from "react-native-appearance";
 import { Appearance } from "react-native";
-import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
-import store, { persistor } from "./redux/store";
+import { ApolloProvider, useReactiveVar } from "@apollo/client";
+import client, { isLoggedInVar } from "./apollo";
+
 
 export default function App() {
   const [loading, setLoading] = useState(true);
-
   const onFinish = () => setLoading(false);
+  const isLoggedIn = useReactiveVar(isLoggedInVar)
 
   const preload = () => {
     const fontsToLoad = [Ionicons.font];
@@ -34,15 +34,14 @@ export default function App() {
     );
   }
 
-  const subscription = Appearance.addChangeListener(({ colorScheme }) => {});
+  const subscription = Appearance.addChangeListener(({ colorScheme }) => { });
 
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <AppearanceProvider>
-          <GlobalNav />
-        </AppearanceProvider>
-      </PersistGate>
-    </Provider>
+    <ApolloProvider client={client}>
+      <AppearanceProvider>
+        <GlobalNav />
+      </AppearanceProvider>
+    </ApolloProvider>
+
   );
 }

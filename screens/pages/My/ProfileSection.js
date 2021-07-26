@@ -1,11 +1,10 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import dummyData from "../../../data/dummyData";
-import { userSelector } from "../../../redux/selector";
 import { colors } from "../../../style";
 import { Text, TouchableOpacity } from "react-native";
-import { logOut } from "../../../redux/reducers/userReducer";
+import { useReactiveVar } from "@apollo/client";
+import { isLoggedInVar } from "../../../apollo";
 
 const Container = styled.View`
   padding: 20px;
@@ -27,11 +26,6 @@ const ProfileId = styled.Text`
   font-weight: 700;
 `;
 
-const ProfileAdress = styled.Text`
-  color: ${colors.main};
-  font-weight: 700;
-`;
-
 const IconBox = styled.View``;
 
 const IconText = styled.Text`
@@ -40,22 +34,19 @@ const IconText = styled.Text`
 `;
 
 const ProfileSection = ({ navigation }) => {
-  const { isLoggedIn, nickName } = useSelector(userSelector);
+  const isLoggedIn = useReactiveVar(isLoggedInVar);
 
-  const dispatch = useDispatch();
+  const handleLogout = () => {};
 
-  const handleLogout = () => dispatch(logOut());
-
-  const goToWallet = () => navigation.navigate("CreateAccount");
+  const goToWallet = () => navigation.navigate("LogIn");
 
   return (
     <Container>
       <ProfileImg source={{ uri: dummyData.result.List7.data[0].img }} />
       <ProfileDesc>
-        <ProfileId>{nickName}</ProfileId>
         {isLoggedIn ? (
           <>
-            <ProfileAdress>SW1q2w3e...2q2w5e</ProfileAdress>
+            <ProfileId>nickname</ProfileId>
             <IconBox>
               <IconText>180</IconText>
               <TouchableOpacity onPress={handleLogout}>
@@ -64,9 +55,12 @@ const ProfileSection = ({ navigation }) => {
             </IconBox>
           </>
         ) : (
-          <TouchableOpacity onPress={goToWallet}>
-            <Text>로그인</Text>
-          </TouchableOpacity>
+          <>
+            <ProfileId>guest</ProfileId>
+            <TouchableOpacity onPress={goToWallet}>
+              <Text>로그인</Text>
+            </TouchableOpacity>
+          </>
         )}
       </ProfileDesc>
     </Container>

@@ -11,6 +11,8 @@ import { ErrorMessage } from "@hookform/error-message";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { colors } from "../style";
 import headerLogo from "../assets/bigheaderLogo.png";
+import { gql, useMutation } from "@apollo/client";
+import { isLoggedInVar } from "../apollo";
 
 const TextInput = styled.TextInput`
   width: 70%;
@@ -21,7 +23,7 @@ const TextInput = styled.TextInput`
 `;
 
 const LinkBox = styled.TouchableOpacity`
-  margin-top: 20px;
+  margin-top: 10px;
   width: 70%;
   height: 50px;
   border-radius: 2px;
@@ -45,17 +47,35 @@ const LogoImg = styled.Image`
   height: 100px;
 `;
 
-function CreateAccount({ navigation }) {
-  const [loading, setLoading] = useState(false);
+function LogIn({ navigation }) {
+  const LOGIN_MUTATION = gql`
+    mutation login($email: String!, $password: String!) {
+      login(email: $email, password: $password) {
+        ok
+        error
+        token
+      }
+    }
+  `;
+  const onCompleted = (data) => {
+    const {
+      login: { ok, token },
+    } = data;
+    if (ok) {
+      isLoggedInVar(true);
+    }
+  };
+
+  const [logInMutation, { loading }] = useMutation(LOGIN_MUTATION, {
+    onCompleted,
+  });
 
   const dismissKeyBoard = () => {
     Keyboard.dismiss();
   };
 
-
   const emaileRef = useRef();
   const passwordRef = useRef();
-  const rePasswordRef = useRef();
 
   const onNext = (nextOne) => {
     nextOne?.current?.focus();
@@ -66,18 +86,25 @@ function CreateAccount({ navigation }) {
     handleSubmit,
     formState: { errors },
     setValue,
+    watch,
   } = useForm();
 
   const onSubmit = (data) => {
-    const { email } = data;
+    if (!loading) {
+      logInMutation({
+        variables: {
+          ...data,
+        },
+      });
+    }
     navigation.navigate("Home");
-    // * nickname 저장, 로그인 true
   };
+
+  const goToCreateAccout = () => navigation.navigate("CreateAccount");
 
   useEffect(() => {
     register("email", { required: "이메일을 입력해주세요" });
     register("password", { required: "비밀번호를 입력해주세요" });
-    register("rePassword", { required: "비밀번호 확인을 입력해주세요" });
   }, [register]);
 
   return (
@@ -111,19 +138,8 @@ function CreateAccount({ navigation }) {
           ref={passwordRef}
           placeholder="비밀번호"
           placeholderTextColor={"#a5a5a5"}
-          onSubmitEditing={() => onNext(rePasswordRef)}
-          onChangeText={(text) => setValue("password", text)}
-          autoCapitalize={"none"}
-          secureTextEntry
-          returnKeyType="next"
-        />
-        <TextInput
-          style={{ backgroundColor: "white" }}
-          ref={rePasswordRef}
-          placeholder="비밀번호 확인"
-          placeholderTextColor={"#a5a5a5"}
           onSubmitEditing={handleSubmit(onSubmit)}
-          onChangeText={(text) => setValue("rePassword", text)}
+          onChangeText={(text) => setValue("password", text)}
           autoCapitalize={"none"}
           secureTextEntry
           returnKeyType="done"
@@ -139,13 +155,19 @@ function CreateAccount({ navigation }) {
           name="password"
           render={({ message }) => <ErrorText>{message}</ErrorText>}
         />
-        <ErrorMessage
-          errors={errors}
-          name="rePassword"
-          render={({ message }) => <ErrorText>{message}</ErrorText>}
-        />
-        <LinkBox disabled={false} onPress={handleSubmit(onSubmit)}>
-          {!loading ? (
+
+        <LinkBox
+          disabled={!watch("email") || !watch("password")}
+          onPress={handleSubmit(onSubmit)}
+        >
+          {loading ? (
+            <ActivityIndicator color="white" />
+          ) : (
+            <NextLink>로그인</NextLink>
+          )}
+        </LinkBox>
+        <LinkBox onPress={goToCreateAccout}>
+          {loading ? (
             <ActivityIndicator color="white" />
           ) : (
             <NextLink>회원가입</NextLink>
@@ -156,4 +178,4 @@ function CreateAccount({ navigation }) {
   );
 }
 
-export default CreateAccount;
+export default LogIn;
