@@ -1,9 +1,14 @@
 import React from "react";
-import { Image } from "react-native";
-import headerLogo from "../assets/headerLogo.png";
+import styled from "styled-components";
+import headerLogo from "../assets/bigheaderLogo.png";
 
-function LogoTitle(props) {
-  return <Image source={headerLogo} />;
+const ImageStyle = styled.Image`
+  width: 30%;
+  height: 50px;
+`;
+
+function LogoTitle() {
+  return <ImageStyle source={headerLogo} resizeMode={"contain"} />;
 }
 
 export default LogoTitle;
