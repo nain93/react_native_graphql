@@ -36,7 +36,7 @@ const IconText = styled.Text`
 const ProfileSection = ({ navigation }) => {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
 
-  const handleLogout = () => {};
+  const handleLogout = () => isLoggedInVar(false);
 
   const goToWallet = () => navigation.navigate("LogIn");
 

@@ -47,7 +47,19 @@ const LogoImg = styled.Image`
   height: 100px;
 `;
 
-function LogIn({ navigation }) {
+function LogIn({ navigation, route: { params } }) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    watch,
+  } = useForm({
+    defaultValues: {
+      email: params?.email,
+      password: params?.password,
+    },
+  });
   const LOGIN_MUTATION = gql`
     mutation login($email: String!, $password: String!) {
       login(email: $email, password: $password) {
@@ -80,14 +92,6 @@ function LogIn({ navigation }) {
   const onNext = (nextOne) => {
     nextOne?.current?.focus();
   };
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-    watch,
-  } = useForm();
 
   const onSubmit = (data) => {
     if (!loading) {
@@ -123,6 +127,7 @@ function LogIn({ navigation }) {
       >
         <LogoImg source={headerLogo} resizeMode={"contain"} />
         <TextInput
+          value={watch("email")}
           style={{ backgroundColor: "white" }}
           ref={emaileRef}
           placeholder="이메일"
@@ -134,6 +139,7 @@ function LogIn({ navigation }) {
           returnKeyType="next"
         />
         <TextInput
+          value={watch("password")}
           style={{ backgroundColor: "white", marginTop: 10, marginBottom: 10 }}
           ref={passwordRef}
           placeholder="비밀번호"

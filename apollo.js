@@ -3,10 +3,11 @@ import { ApolloClient, InMemoryCache, makeVar } from "@apollo/client";
 export const isLoggedInVar = makeVar(false);
 
 const client = new ApolloClient({
-  uri: "http://739315770171.ngrok.io/graphql",
+  uri: "https://back.urtest.club:3000/graphql",
   cache: new InMemoryCache(),
 });
 
 export default client;
 
-// 'http://localhost:4000/graphql'
+// 'http://localhost:4000/graphql
+// https://back.urtest.club:3000/graphql'

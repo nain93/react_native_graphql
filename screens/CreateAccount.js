@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import {
   ActivityIndicator,
@@ -11,6 +11,7 @@ import { ErrorMessage } from "@hookform/error-message";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { colors } from "../style";
 import headerLogo from "../assets/bigheaderLogo.png";
+import { gql, useMutation } from "@apollo/client";
 
 const TextInput = styled.TextInput`
   width: 70%;
@@ -46,12 +47,48 @@ const LogoImg = styled.Image`
 `;
 
 function CreateAccount({ navigation }) {
-  const [loading, setLoading] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    getValues,
+  } = useForm();
+
+  const CREATE_ACCOUNT_MUTATION = gql`
+    mutation createAccount(
+      $userName: String
+      $email: String!
+      $password: String!
+    ) {
+      createAccount(userName: $userName, email: $email, password: $password) {
+        ok
+        error
+      }
+    }
+  `;
+  const onCompleted = (data) => {
+    const {
+      createAccount: { ok },
+    } = data;
+    const { email, password } = getValues();
+    if (ok) {
+      navigation.navigate("LogIn", {
+        email,
+        password,
+      });
+    }
+  };
+  const [createAccountMutation, { loading }] = useMutation(
+    CREATE_ACCOUNT_MUTATION,
+    {
+      onCompleted,
+    }
+  );
 
   const dismissKeyBoard = () => {
     Keyboard.dismiss();
   };
-
 
   const emaileRef = useRef();
   const passwordRef = useRef();
@@ -61,17 +98,17 @@ function CreateAccount({ navigation }) {
     nextOne?.current?.focus();
   };
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-  } = useForm();
-
   const onSubmit = (data) => {
-    const { email } = data;
+    const { email, password } = data;
+    if (!loading) {
+      createAccountMutation({
+        variables: {
+          email,
+          password,
+        },
+      });
+    }
     navigation.navigate("Home");
-    // * nickname 저장, 로그인 true
   };
 
   useEffect(() => {
