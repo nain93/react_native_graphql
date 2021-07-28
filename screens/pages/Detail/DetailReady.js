@@ -9,15 +9,16 @@ const Container = styled.View`
 
 const ImgBox = styled.View`
   width: 100%;
+  flex-direction: row;
   align-items: center;
+  justify-content: center;
   margin: 20px 0;
   height: 40%;
 `;
 
 const ImgItem = styled.Image`
-  height: 100%;
-  width: 80%;
-  border-radius: 15px;
+  height: 70%;
+  width: 50%;
 `;
 
 const DescBox = styled.View`
@@ -53,35 +54,27 @@ const JoinBtn = styled.TouchableOpacity`
 
 const JoinBtnText = styled.Text`
   font-weight: 700;
+  color: white;
 `;
 
 const DetailReady = ({ route, navigation }) => {
-  const { category, name, card, img } = route.params.item;
+  const { title, url, type } = route.params;
 
-  const handleFiterCard = () => {
-    if (card === 1) {
-      navigation.navigate("DetailTinderPick");
-      return;
-    }
-    if (card === 2) {
-      navigation.navigate("DetailNormalPick");
-      return;
-    }
-    return;
-  };
+  const goToDetail = () => navigation.navigate("WorldCupDetail");
 
   return (
     <Container>
       <ImgBox>
-        <ImgItem source={{ uri: img }} />
+        <ImgItem source={{ uri: url[0].photoUrl }} />
+        <ImgItem source={{ uri: url[1].photoUrl }} />
       </ImgBox>
       <DescBox>
-        <MainText>{name}</MainText>
-        <OtherText>{category}</OtherText>
+        <MainText>{title}</MainText>
+        <OtherText>{type}</OtherText>
         <JoinText>182명 참여중</JoinText>
       </DescBox>
-      <JoinBtn onPress={handleFiterCard}>
-        <JoinBtnText>참여시작!</JoinBtnText>
+      <JoinBtn onPress={goToDetail}>
+        <JoinBtnText>게임시작!</JoinBtnText>
       </JoinBtn>
     </Container>
   );

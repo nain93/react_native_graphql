@@ -12,7 +12,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { colors } from "../style";
 import headerLogo from "../assets/bigheaderLogo.png";
 import { gql, useMutation } from "@apollo/client";
-import { isLoggedInVar } from "../apollo";
+import { logUserIn } from "../apollo";
 
 const TextInput = styled.TextInput`
   width: 70%;
@@ -69,12 +69,12 @@ function LogIn({ navigation, route: { params } }) {
       }
     }
   `;
-  const onCompleted = (data) => {
+  const onCompleted = async (data) => {
     const {
       login: { ok, token },
     } = data;
     if (ok) {
-      isLoggedInVar(true);
+      await logUserIn(token);
     }
   };
 

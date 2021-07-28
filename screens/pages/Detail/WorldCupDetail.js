@@ -45,7 +45,7 @@ const CountText = styled.Text`
   margin-top: 10%;
 `;
 
-const DetailNormalPick = ({ navigation }) => {
+const WorldCupDetail = ({ navigation }) => {
   const [pickCount, setPickCount] = useState(1);
 
   const refresh = () => {
@@ -90,4 +90,4 @@ const DetailNormalPick = ({ navigation }) => {
   );
 };
 
-export default DetailNormalPick;
+export default WorldCupDetail;

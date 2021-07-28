@@ -24,7 +24,7 @@ const renderItem = ({ item }) => {
   );
 };
 
-const PopularSection = ({ navigation }) => {
+const NowPopularSection = ({ navigation }) => {
   return (
     <Container>
       <Title>추천 월드컵</Title>
@@ -36,8 +36,9 @@ const PopularSection = ({ navigation }) => {
         itemWidth={200}
         loop={true}
       />
+      <Title>월드컵 게임</Title>
     </Container>
   );
 };
 
-export default PopularSection;
+export default NowPopularSection;

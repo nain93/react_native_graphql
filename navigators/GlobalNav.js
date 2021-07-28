@@ -8,7 +8,7 @@ import Home from "../screens/Home";
 import Upload from "../Components/Upload";
 import DetailReady from "../screens/pages/Detail/DetailReady";
 import DetailTinderPick from "../screens/pages/Detail/DetailTinderPick";
-import DetailNormalPick from "../screens/pages/Detail/DetailNormalPick";
+import WorldCupDetail from "../screens/pages/Detail/WorldCupDetail";
 import { colors } from "../style";
 import Result from "../screens/pages/Result";
 import Exchange from "../screens/pages/My/MyNav/Exchange";
@@ -98,14 +98,14 @@ function GlobalNav() {
           component={DetailTinderPick}
         />
         <Stack.Screen
-          name="DetailNormalPick"
+          name="WorldCupDetail"
           options={{
             title: "뒤로",
             headerTransparent: true,
             headerTitleStyle: { fontWeight: "700" },
             headerTintColor: "white",
           }}
-          component={DetailNormalPick}
+          component={WorldCupDetail}
         />
         <Stack.Screen
           name="Result"

@@ -1,19 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-import dummyData from "../../../data/dummyData";
-import Ad from "../../../Components/Ad";
-import FilterSection from "./FilterSection";
-import NowPopularSection from "./NowPopularSection";
+import WorldCupGame from "./WorldCupGame";
 
-const Container = styled.ScrollView`
+const Container = styled.View`
   flex: 1;
 `;
 
 function Now({ navigation }) {
   return (
     <Container>
-      <NowPopularSection navigation={navigation} />
-      <FilterSection />
+      <WorldCupGame navigation={navigation} />
     </Container>
   );
 }

@@ -23,7 +23,8 @@ npm install @react-native-async-storage/async-storage
 npm i react-native-reanimated/plugin
 npm i react-native-vector-icons
 npm install @apollo/client graphql
-
+npm install @react-native-async-storage/async-storage
+npm i jsonwebtoken
 
 npm install -g sharp-cli
 npx expo-optimize

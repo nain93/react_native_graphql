@@ -55,7 +55,7 @@ function Home() {
                 size={size}
               />
             ),
-            tabBarBadge: 3,
+            // tabBarBadge: 3,
           }}
         />
         <Tab.Screen

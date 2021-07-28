@@ -3,8 +3,8 @@ import styled from "styled-components";
 import dummyData from "../../../data/dummyData";
 import { colors } from "../../../style";
 import { Text, TouchableOpacity } from "react-native";
-import { useReactiveVar } from "@apollo/client";
-import { isLoggedInVar } from "../../../apollo";
+import { gql, useQuery, useReactiveVar } from "@apollo/client";
+import { isLoggedInVar, logUserOut, tokenVar } from "../../../apollo";
 
 const Container = styled.View`
   padding: 20px;
@@ -35,8 +35,33 @@ const IconText = styled.Text`
 
 const ProfileSection = ({ navigation }) => {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
+  const GET_PROFILE = gql`
+    query getProfile($id: Int!) {
+      getProfile(id: $id) {
+        userName
+        email
+      }
+    }
+  `;
 
-  const handleLogout = () => isLoggedInVar(false);
+  // let id;
+
+  // if (isLoggedIn) {
+  //   id = jwt.verify(
+  //     tokenVar(),
+  //     "ZOPLE56bWrwcTq0wGKC5a6LJ9rci6Xus",
+  //     function (decoded) {
+  //       return decoded.id;
+  //     }
+  //   );
+  // }
+  const { loading, error, data } = useQuery(GET_PROFILE, {
+    variables: {
+      id: 1,
+    },
+  });
+
+  const handleLogout = () => logUserOut();
 
   const goToWallet = () => navigation.navigate("LogIn");
 
@@ -46,7 +71,9 @@ const ProfileSection = ({ navigation }) => {
       <ProfileDesc>
         {isLoggedIn ? (
           <>
-            <ProfileId>nickname</ProfileId>
+            {console.log(data)}
+            <ProfileId>닉네임</ProfileId>
+            <ProfileId>이메일</ProfileId>
             <IconBox>
               <IconText>180</IconText>
               <TouchableOpacity onPress={handleLogout}>
