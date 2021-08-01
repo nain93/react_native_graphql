@@ -71,7 +71,6 @@ const ProfileSection = ({ navigation }) => {
       <ProfileDesc>
         {isLoggedIn ? (
           <>
-            {console.log(data)}
             <ProfileId>닉네임</ProfileId>
             <ProfileId>이메일</ProfileId>
             <IconBox>

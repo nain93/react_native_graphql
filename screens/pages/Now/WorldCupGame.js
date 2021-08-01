@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { gql, useQuery } from "@apollo/client";
 import { FlatList, TouchableOpacity, View, Text } from "react-native";
@@ -6,10 +6,6 @@ import NowPopularSection from "./NowPopularSection";
 import WorldIcon from "react-native-vector-icons/Ionicons";
 import { colors } from "../../../style";
 import ScreenLayout from "../../../Components/ScreenLayout";
-
-const Container = styled.View`
-  flex: 1;
-`;
 
 const ImgBox = styled.View`
   width: 100%;
@@ -78,6 +74,7 @@ function WorldCupGame({ navigation }) {
   const renderItem = ({ item }) => {
     return (
       <TouchableOpacity
+        activeOpacity={1}
         onPress={() =>
           goToDetail({
             url: item.photos,
@@ -125,9 +122,20 @@ function WorldCupGame({ navigation }) {
     );
   };
 
+  const [refreshing, setRefreshing] = useState(false);
+
+  const refresh = async () => {
+    setRefreshing(true);
+    await // todo api 요청
+    setRefreshing(false);
+  };
+
   return (
     <ScreenLayout loading={loading}>
       <FlatList
+        refreshing={refreshing}
+        onRefresh={() => setRefreshing(true)}
+        onEndReached={() => console.log("end reached")}
         ListHeaderComponent={NowPopularSection}
         data={data?.getContentAll}
         renderItem={renderItem}
