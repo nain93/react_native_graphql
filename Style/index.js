@@ -1,4 +1,4 @@
-import styled from "styled-components/native";
+import styled from "styled-components";
 
 export const ItemBox = styled.View`
   flex-direction: row;
